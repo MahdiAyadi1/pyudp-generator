@@ -1,0 +1,47 @@
+timing:
+  mode: "interval" # "interval" | "rate" | "bandwidth"
+
+  # Used when mode = interval
+  interval:
+    value: 10 # milliseconds between packets
+    jitter: 2 # ± ms of random variation (simulates real traffic)
+    jitter_distribution: "uniform" # "uniform" | "gaussian"
+
+  # Used when mode = rate
+  rate:
+    packets_per_second: 500
+
+  # Used when mode = bandwidth
+  bandwidth:
+    target_mbps: 10.0 # generator will size/pace packets to hit this
+
+payload:
+  size:
+    mode: "fixed" # "fixed" | "random" | "incremental" | "file"
+    bytes: 512 # used when mode = fixed
+    min: 64 # used when mode = random
+    max: 1400 # used when mode = random
+
+  content:
+    mode: "pattern" # "zeros" | "random" | "pattern" | "text" | "file"
+    pattern: "0xAB" # used when mode = pattern
+    text: "HELLO" # used when mode = text, repeated to fill size
+    file: "./payload.bin" # used when mode = file, loops if needed
+
+session:
+  host: "127.0.0.1"
+  port: 5005
+  bind_port: 0
+  stop_after:
+    mode: "duration" # "duration" | "packet_count" | "bytes" | "forever"
+    seconds: 3 # used when mode = duration
+    packets: 10000 # used when mode = packet_count
+    megabytes: 50 # used when mode = bytes
+
+# ── Output / Stats ────────────────────────────────────
+output:
+  stats_interval_seconds: 1 # how often to print live stats
+  format: "table" # "table" | "json" | "csv"
+  log_file: "./run.log" # optional, omit to disable
+  pcap_file: "./capture.pcap" # optional, save sent packets to pcap
+  verbose: false
