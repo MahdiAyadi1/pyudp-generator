@@ -11,7 +11,7 @@ class SessionHandler:
     def start_session(self):
         try:
             logger.info("Starting session with config: %s", self.session_config)
-            self.udp_generator.generate_udp_packets(stop_after=self.session_config.get("stop_after"))
+            self.udp_generator.generate_udp_packets()
             logger.info("Session completed")
         
         except Exception as e:

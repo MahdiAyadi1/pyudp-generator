@@ -14,5 +14,5 @@ if __name__ == "__main__":
     target_ip = "127.0.0.1"
     target_port = 5000
 
-    session_handler = SessionHandler(config_loader.get_session_config(), UDPGenerator(target_ip, target_port))
+    session_handler = SessionHandler(config_loader.get_session_config(), UDPGenerator(config_loader.get_udp_generator_config()))
     session_handler.start_session()
